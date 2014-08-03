@@ -1,0 +1,12 @@
+Import('env')
+
+tests_dvn = env.Program(
+    target='tests-dvn',
+    source=Glob('*.cpp'),
+    LIBS=['dvn', 'gtest'],
+    LIBPATH=['#lib', 'D:/usr/lib'])
+
+Command(
+    target='testoutput',
+    source=tests_dvn,
+    action=['$SOURCE $TARGET'])

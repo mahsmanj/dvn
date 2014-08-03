@@ -1,0 +1,11 @@
+Import('env')
+
+lib = env.Library(
+	target='dvn',
+	source=Glob('*.cpp'),
+	CPPDEFINES=['_DVN_EXPORTING'])
+
+Command(
+	target='#lib/'+str(lib[0]),
+	source=lib,
+	action=Copy('$TARGET', '$SOURCE'))
