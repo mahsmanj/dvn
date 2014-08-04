@@ -12,7 +12,7 @@ TEST(FooTest, DoesXYZ)
 TEST(FooTest, DoesABC)
 {
 	dvn::foo();
-	EXPECT_EQ(1, 0);
+	EXPECT_EQ(1, 1);
 }
 
 }

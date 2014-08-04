@@ -5,7 +5,4 @@ lib = env.Library(
 	source=Glob('*.cpp'),
 	CPPDEFINES=['_DVN_EXPORTING'])
 
-Command(
-	target='#lib/'+str(lib[0]),
-	source=lib,
-	action=Copy('$TARGET', '$SOURCE'))
+Install('#lib', lib)
