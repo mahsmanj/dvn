@@ -24,6 +24,11 @@ env.Append(BUILDERS = {'Test' :  bld})
 # Make our construction environment available to the SConscripts
 Export('env')
 
-SConscript('src/dvn/SConscript', variant_dir=os.path.join(BUILD_DIR, 'src/dvn'), duplicate=0)
-SConscript('src/hello/SConscript', variant_dir=os.path.join(BUILD_DIR, 'src/hello'), duplicate=0)
-SConscript('tests/dvn/SConscript', variant_dir=os.path.join(BUILD_DIR, 'tests/dvn'), duplicate=0)
+def descend(dir):
+	sconscript = os.path.join(dir, 'SConscript')
+	variant_dir = os.path.join(BUILD_DIR, dir)
+	SConscript(sconscript, variant_dir=variant_dir, duplicate=0)
+
+descend('src/dvn')
+descend('src/hello')
+descend('tests/dvn')
