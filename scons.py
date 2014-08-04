@@ -18,7 +18,7 @@ def environment(env):
 
     # Create a builder for tests
     test_builder = env.Builder(action=builder_test)
-    builders = {'Test' : test_builder}
+    builders = {'Test': test_builder}
     env.Append(BUILDERS=builders)
 
     # Make our construction environment available to the other build scripts
