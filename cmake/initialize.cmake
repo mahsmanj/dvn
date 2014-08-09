@@ -5,8 +5,9 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include_directories(${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/include)
 
 # Define required libraries
-include(lib/boost)
+include(lib/assimp)
 include(lib/gtest)
+include(lib/sdl)
 
 # Include the user's settings if they exist
 if (EXISTS ${PROJECT_SOURCE_DIR}/user.cmake)

@@ -11,13 +11,6 @@ set(USER_VERSION_MINOR 0)
 # Initialize project-specific CMake settings -- this must proceed project()
 include(cmake/initialize.cmake)
 
-# Platform specific compiler flags
-
-if (MSVC)
-	# Get rid of a couple warnings
-	#set(CMAKE_CXX_LINK_FLAGS "/NODEFAULTLIB:library")
-endif()
-
 # Define build targets
 
 add_subdirectory(src/dvn)
