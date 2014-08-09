@@ -1,0 +1,3 @@
+set(LIB_GTEST_INCLUDE_DIRS "D:\\Libraries\\packages\\gtest-1.7.0\\include" CACHE DIRECTORYPATH "" FORCE)
+set(LIB_GTEST_LIBRARY_DIRS "D:\\Libraries\\packages\\gtest-1.7.0\\lib" CACHE DIRECTORYPATH "" FORCE)
+set(LIB_GTEST_LIBRARIES gtest CACHE DIRECTORYPATH "" FORCE)
