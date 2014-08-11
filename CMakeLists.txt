@@ -11,7 +11,7 @@ set(USER_VERSION_MINOR 0)
 # Initialize project-specific CMake settings -- this must proceed project()
 include(cmake/initialize.cmake)
 
-# Define build targets
+# Define build targets:
 
 add_subdirectory(src/dvn)
 add_subdirectory(test/dvn)

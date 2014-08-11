@@ -26,6 +26,13 @@ include_directories(${TARGET_INCLUDE_DIRS})
 # Add the test executable as a build target
 add_executable(${TARGET_NAME} ${TARGET_SRC})
 
+# Specify the target's linker flags
+set_target_properties(
+	${TARGET_NAME}
+	PROPERTIES
+		LINK_FLAGS "${TARGET_LINK_FLAGS}"
+		LINK_FLAGS_DEBUG "${TARGET_LINK_FLAGS_DEBUG}"
+		LINK_FLAGS_RELEASE "${TARGET_LINK_FLAGS_RELEASE}")
 
 # Specify the current build target's libraries to link with
 

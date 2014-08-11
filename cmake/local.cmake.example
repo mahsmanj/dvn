@@ -1,0 +1,3 @@
+if (MSVC)
+	set(CMAKE_CXX_FLAGS "/MP8 /EHsc")
+endif()
