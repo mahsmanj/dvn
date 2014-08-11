@@ -44,8 +44,8 @@ TEST(vec2, should_take_dot_product_of_two_vectors)
 {
 	vec2 a(1, 1);
 	vec2 b(1, 2);
-	real expected = 3;
-	real actual = dot(a, b);
+	scalar expected = 3;
+	scalar actual = dot(a, b);
 	EXPECT_EQ(expected, actual);
 }
 

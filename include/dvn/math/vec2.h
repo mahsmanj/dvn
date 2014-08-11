@@ -1,7 +1,7 @@
 #ifndef DVN_VEC2_H
 #define DVN_VEC2_H
 
-#include <dvn/math/real.h>
+#include <dvn/math/scalar.h>
 
 namespace dvn {
 namespace math {
@@ -12,21 +12,21 @@ namespace math {
 class vec2
 {
 public:
-	vec2(real in_x, real in_y);
+	vec2(scalar in_x, scalar in_y);
 
 	inline bool operator==(const vec2& right) const;
 	inline vec2 operator+(const vec2& right) const;
 	inline vec2 operator-(const vec2& right) const;
-	inline vec2 operator*(real right) const;
+	inline vec2 operator*(scalar right) const;
 
-	real x;
-	real y;
-	real z;
+	scalar x;
+	scalar y;
+	scalar z;
 };
 
-inline real dot(const vec2& left, const vec2& right);
+inline scalar dot(const vec2& left, const vec2& right);
 
-vec2 operator*(real left, const vec2& right);
+vec2 operator*(scalar left, const vec2& right);
 
 bool vec2::operator==(const vec2& right) const
 {
@@ -43,17 +43,17 @@ vec2 vec2::operator-(const vec2& right) const
 	return vec2(x - right.x, y - right.y);
 }
 
-vec2 vec2::operator*(real right) const
+vec2 vec2::operator*(scalar right) const
 {
 	return vec2(x * right, y * right);
 }
 
-real dot(const vec2& left, const vec2& right)
+scalar dot(const vec2& left, const vec2& right)
 {
 	return left.x * right.x + left.y * right.y;
 }
 
-inline vec2 operator*(real left, const vec2& right)
+inline vec2 operator*(scalar left, const vec2& right)
 {
 	return vec2(left * right.x, left * right.y);
 }
