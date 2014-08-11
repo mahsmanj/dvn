@@ -10,7 +10,7 @@ TEST(quantity, should_convert_radians_to_degrees)
 {
 	radians angle(TWO_PI);
 	degrees expected(360.0f);
-	degrees actual = convert_to<degrees>(angle);
+	degrees actual = convert<degrees>(angle);
 	EXPECT_FLOAT_EQ(expected.value, actual.value);
 }
 

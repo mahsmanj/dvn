@@ -7,7 +7,7 @@
 namespace dvn {
 namespace math {
 
-template <class source_unit>
+template <class unit>
 struct quantity
 {
 	explicit quantity(scalar in_value)
@@ -18,7 +18,7 @@ struct quantity
 	template <class target_unit>
 	inline static scalar per()
 	{
-		return target_unit::per<source_unit>();
+		return target_unit::per<unit>();
 	}
 
 	inline quantity operator+(quantity right) const;
@@ -29,8 +29,14 @@ struct quantity
 	scalar value;
 };
 
-template <class target, class source>
-target convert_to(source s);
+template <class unit>
+inline quantity<unit> operator*(scalar left, quantity<unit> right);
+
+template <class unit>
+inline quantity<unit> operator/(scalar left, quantity<unit> right);
+
+template <class target_quantity, class source_quantity>
+target_quantity convert(source_quantity s);
 
 class radian;
 
@@ -63,33 +69,44 @@ public:
 typedef quantity<degree> degrees;
 typedef quantity<radian> radians;
 
-
-template <class source>
-quantity<source> quantity<source>::operator+(quantity right) const
+template <class unit>
+quantity<unit> quantity<unit>::operator+(quantity right) const
 {
 	return value + right.value;
 }
 
-template <class source>
-quantity<source> quantity<source>::operator-(quantity right) const
+template <class unit>
+quantity<unit> quantity<unit>::operator-(quantity right) const
 {
 	return value - right.value;
 }
 
-template <class source>
-quantity<source> quantity<source>::operator*(scalar right) const
+template <class unit>
+quantity<unit> quantity<unit>::operator*(scalar right) const
 {
 	return value * right;
 }
 
-template <class source>
-quantity<source> quantity<source>::operator/(scalar right) const
+template <class unit>
+quantity<unit> quantity<unit>::operator/(scalar right) const
 {
 	return value / right;
 }
 
+template <class unit>
+inline quantity<unit> operator*(scalar left, quantity<unit> right)
+{
+	return quantity<unit>(left * right.value);
+}
+
+template <class unit>
+inline quantity<unit> operator/(scalar left, quantity<unit> right)
+{
+	return quantity<unit>(left * right.value);
+}
+
 template <class target_quantity, class source_quantity>
-target_quantity convert_to(source_quantity s)
+target_quantity convert(source_quantity s)
 {
 	return target_quantity(s.value * target_quantity::per<source_quantity>());
 }
