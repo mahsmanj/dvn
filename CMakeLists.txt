@@ -16,4 +16,4 @@ include(cmake/initialize.cmake)
 add_subdirectory(src/dvn)
 add_subdirectory(test/dvn)
 
-add_subdirectory(src/hello)
+#add_subdirectory(src/hello)
