@@ -1,25 +1,34 @@
 #ifndef DVN_QUANTITY_H
 #define DVN_QUANTITY_H
 
+#include <iostream>
 #include <dvn/math/constants.h>
 #include <dvn/math/scalar.h>
 
 namespace dvn {
 namespace math {
 
-template <class unit>
+#define _TEMPLATE template <class base_unit, class derived_unit>
+#define _QUANTITY typename quantity<base_unit, derived_unit>
+
+_TEMPLATE
 class quantity
 {
 public:
+	typedef derived_unit unit;
+
 	explicit quantity(scalar in_value)
 	{
 		_value = in_value;
 	}
 
-	template <class target_unit>
+	template <class denominator_quantity>
 	inline static scalar per()
 	{
-		return target_unit::per<unit>();
+		typedef denominator_quantity::unit denominator_unit;
+
+		// The result is a conversion factor: denominator units per source unit
+		return base_unit::per<denominator_unit>() / base_unit::per<derived_unit>();
 	}
 
 	inline quantity operator+(quantity right) const;
@@ -33,22 +42,44 @@ private:
 	scalar _value;
 };
 
-template <class unit>
-inline quantity<unit> operator*(scalar left, quantity<unit> right);
+_TEMPLATE
+inline _QUANTITY operator*(scalar left, _QUANTITY right);
 
-template <class unit>
-inline quantity<unit> operator/(scalar left, quantity<unit> right);
+_TEMPLATE
+inline _QUANTITY operator/(scalar left, _QUANTITY right);
 
 template <class target_quantity, class source_quantity>
 target_quantity convert(source_quantity s);
 
-class radian;
-
 class degree
 {
 public:
-	template <class target>
+	static const char* name()
+	{
+		return "degree";
+	}
+};
+
+class radian
+{
+public:
+	static const char* name()
+	{
+		return "radian";
+	}
+};
+
+class angle
+{
+public:
+	template <class derived_unit>
 	inline static scalar per();
+
+	template <>
+	inline static scalar per<degree>()
+	{
+		return 1.0f;
+	}
 
 	template <>
 	inline static scalar per<radian>()
@@ -57,68 +88,95 @@ public:
 	}
 };
 
-class radian
+typedef quantity<angle, degree> degrees;
+typedef quantity<angle, radian> radians;
+
+class meter
 {
 public:
-	template <class target>
-	inline static scalar per();
-
-	template <>
-	inline static scalar per<degree>()
+	static const char* name()
 	{
-		return RADIANS_PER_DEGREE;
+		return "meter";
 	}
 };
 
-typedef quantity<degree> degrees;
-typedef quantity<radian> radians;
+class kilometer
+{
+public:
+	static const char* name()
+	{
+		return "kilometer";
+	}
+};
 
-template <class unit>
-quantity<unit> quantity<unit>::operator+(quantity right) const
+class length
+{
+public:
+	template <class derived_unit>
+	inline static scalar per();
+
+	template <>
+	inline static scalar per<meter>()
+	{
+		return 1.0f;
+	}
+
+	template <>
+	inline static scalar per<kilometer>()
+	{
+		return 1000.0f;
+	}
+};
+
+typedef quantity<length, meter> meters;
+typedef quantity<length, kilometer> kilometers;
+
+_TEMPLATE
+_QUANTITY _QUANTITY::operator+(_QUANTITY right) const
 {
 	return _value + right.value();
 }
 
-template <class unit>
-quantity<unit> quantity<unit>::operator-(quantity right) const
+_TEMPLATE
+_QUANTITY _QUANTITY::operator-(_QUANTITY right) const
 {
 	return _value - right.value();
 }
 
-template <class unit>
-quantity<unit> quantity<unit>::operator*(scalar right) const
+_TEMPLATE
+_QUANTITY _QUANTITY::operator*(scalar right) const
 {
 	return _value * right;
 }
 
-template <class unit>
-quantity<unit> quantity<unit>::operator/(scalar right) const
+_TEMPLATE
+_QUANTITY _QUANTITY::operator/(scalar right) const
 {
 	return _value / right;
 }
 
-template <class unit>
-inline scalar quantity<unit>::value() const
+_TEMPLATE
+inline scalar _QUANTITY::value() const
 {
 	return _value;
 }
 
-template <class unit>
-inline quantity<unit> operator*(scalar left, quantity<unit> right)
+_TEMPLATE
+inline _QUANTITY operator*(scalar left, _QUANTITY right)
 {
-	return quantity<unit>(left * right.value());
+	return _QUANTITY(left * right.value());
 }
 
-template <class unit>
-inline quantity<unit> operator/(scalar left, quantity<unit> right)
+_TEMPLATE
+inline _QUANTITY operator/(scalar left, _QUANTITY right)
 {
-	return quantity<unit>(left * right.value());
+	return _QUANTITY(left * right.value());
 }
 
 template <class target_quantity, class source_quantity>
 target_quantity convert(source_quantity s)
 {
-	return target_quantity(s.value()* target_quantity::per<source_quantity>());
+	return target_quantity(s.value() * target_quantity::per<source_quantity>());
 }
 
 } // math
