@@ -7,7 +7,7 @@
 namespace dvn {
 namespace math {
 
-template <class source>
+template <class source_unit>
 struct quantity
 {
 	explicit quantity(scalar in_value)
@@ -15,10 +15,10 @@ struct quantity
 		value = in_value;
 	}
 
-	template <class target>
+	template <class target_unit>
 	inline static scalar per()
 	{
-		return target::per<source>();
+		return target_unit::per<source_unit>();
 	}
 
 	inline quantity operator+(quantity right) const;
@@ -88,10 +88,10 @@ quantity<source> quantity<source>::operator/(scalar right) const
 	return value / right;
 }
 
-template <class target, class source>
-target convert_to(source s)
+template <class target_quantity, class source_quantity>
+target_quantity convert_to(source_quantity s)
 {
-	return target(s.value * target::per<source>());
+	return target(s.value * target_quantity::per<source_quantity>());
 }
 
 } // math
