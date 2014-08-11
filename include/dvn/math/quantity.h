@@ -8,11 +8,12 @@ namespace dvn {
 namespace math {
 
 template <class unit>
-struct quantity
+class quantity
 {
+public:
 	explicit quantity(scalar in_value)
 	{
-		value = in_value;
+		_value = in_value;
 	}
 
 	template <class target_unit>
@@ -26,7 +27,10 @@ struct quantity
 	inline quantity operator*(scalar right) const;
 	inline quantity operator/(scalar right) const;
 
-	scalar value;
+	inline scalar value() const;
+
+private:
+	scalar _value;
 };
 
 template <class unit>
@@ -72,43 +76,49 @@ typedef quantity<radian> radians;
 template <class unit>
 quantity<unit> quantity<unit>::operator+(quantity right) const
 {
-	return value + right.value;
+	return _value + right.value();
 }
 
 template <class unit>
 quantity<unit> quantity<unit>::operator-(quantity right) const
 {
-	return value - right.value;
+	return _value - right.value();
 }
 
 template <class unit>
 quantity<unit> quantity<unit>::operator*(scalar right) const
 {
-	return value * right;
+	return _value * right;
 }
 
 template <class unit>
 quantity<unit> quantity<unit>::operator/(scalar right) const
 {
-	return value / right;
+	return _value / right;
+}
+
+template <class unit>
+inline scalar quantity<unit>::value() const
+{
+	return _value;
 }
 
 template <class unit>
 inline quantity<unit> operator*(scalar left, quantity<unit> right)
 {
-	return quantity<unit>(left * right.value);
+	return quantity<unit>(left * right.value());
 }
 
 template <class unit>
 inline quantity<unit> operator/(scalar left, quantity<unit> right)
 {
-	return quantity<unit>(left * right.value);
+	return quantity<unit>(left * right.value());
 }
 
 template <class target_quantity, class source_quantity>
 target_quantity convert(source_quantity s)
 {
-	return target_quantity(s.value * target_quantity::per<source_quantity>());
+	return target_quantity(s.value()* target_quantity::per<source_quantity>());
 }
 
 } // math
