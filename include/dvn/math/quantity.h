@@ -23,13 +23,7 @@ public:
 	}
 
 	template <class denominator_quantity>
-	inline static scalar per()
-	{
-		typedef denominator_quantity::unit denominator_unit;
-
-		// The result is a conversion factor: denominator units per source unit
-		return base_unit::per<denominator_unit>() / base_unit::per<derived_unit>();
-	}
+	inline static scalar per();
 
 	inline quantity operator+(quantity right) const;
 	inline quantity operator-(quantity right) const;
@@ -41,6 +35,18 @@ public:
 private:
 	scalar _value;
 };
+
+_TEMPLATE
+template <class denominator_quantity>
+inline static scalar _QUANTITY::per()
+{
+	typedef unit numerator_unit;
+	typedef denominator_quantity::unit denominator_unit;
+
+	// The result is a conversion factor: numerator units per denominator unit
+	return base_unit::per<denominator_unit>() /
+	       base_unit::per<numerator_unit>();
+}
 
 _TEMPLATE
 inline _QUANTITY operator*(scalar left, _QUANTITY right);
