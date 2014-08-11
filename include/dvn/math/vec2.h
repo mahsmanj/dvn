@@ -21,7 +21,6 @@ public:
 
 	scalar x;
 	scalar y;
-	scalar z;
 };
 
 inline scalar dot(const vec2& left, const vec2& right);
