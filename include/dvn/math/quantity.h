@@ -91,7 +91,7 @@ quantity<source> quantity<source>::operator/(scalar right) const
 template <class target_quantity, class source_quantity>
 target_quantity convert_to(source_quantity s)
 {
-	return target(s.value * target_quantity::per<source_quantity>());
+	return target_quantity(s.value * target_quantity::per<source_quantity>());
 }
 
 } // math
