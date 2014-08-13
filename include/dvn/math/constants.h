@@ -1,5 +1,5 @@
-#ifndef DVN_CONSTANTS_H
-#define DVN_CONSTANTS_H
+#ifndef DVN_MATH_CONSTANTS_H
+#define DVN_MATH_CONSTANTS_H
 
 #include <dvn/math/scalar.h>
 

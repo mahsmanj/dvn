@@ -1,5 +1,5 @@
-#ifndef DVN_VEC2_H
-#define DVN_VEC2_H
+#ifndef DVN_MATH_VEC2_H
+#define DVN_MATH_VEC2_H
 
 #include <dvn/math/scalar.h>
 
@@ -9,52 +9,72 @@ namespace math {
 /**
  * A two-dimensional vector class.
  */
-class vec2
+template <class scalar>
+class vector2
 {
 public:
-	vec2(scalar in_x, scalar in_y);
+	vector2(scalar in_x, scalar in_y);
 
-	inline bool operator==(const vec2& right) const;
-	inline vec2 operator+(const vec2& right) const;
-	inline vec2 operator-(const vec2& right) const;
-	inline vec2 operator*(scalar right) const;
+	inline bool operator==(const vector2& right) const;
+	inline vector2 operator+(const vector2& right) const;
+	inline vector2 operator-(const vector2& right) const;
+	inline vector2 operator*(scalar right) const;
 
 	scalar x;
 	scalar y;
 };
 
-inline scalar dot(const vec2& left, const vec2& right);
+template <class scalar>
+inline scalar dot(const vector2<scalar>& left, const vector2<scalar>& right);
 
-vec2 operator*(scalar left, const vec2& right);
+template <class scalar>
+vector2<scalar> operator*(scalar left, const vector2<scalar>& right);
 
-bool vec2::operator==(const vec2& right) const
+typedef vector2<scalar> vec2;
+typedef vector2<float> vec2f;
+typedef vector2<double> vec2d;
+
+template <class scalar>
+vector2<scalar>::vector2(scalar in_x, scalar in_y)
+	: x(in_x)
+	, y(in_y)
+{
+}
+
+template <class scalar>
+bool vector2<scalar>::operator==(const vector2& right) const
 {
 	return x == right.x && y == right.y;
 }
 
-vec2 vec2::operator+(const vec2& right) const
+template <class scalar>
+vector2<scalar> vector2<scalar>::operator+(const vector2& right) const
 {
-	return vec2(x + right.x, y + right.y);
+	return vector2(x + right.x, y + right.y);
 }
 
-vec2 vec2::operator-(const vec2& right) const
+template <class scalar>
+vector2<scalar> vector2<scalar>::operator-(const vector2& right) const
 {
-	return vec2(x - right.x, y - right.y);
+	return vector2(x - right.x, y - right.y);
 }
 
-vec2 vec2::operator*(scalar right) const
+template <class scalar>
+vector2<scalar> vector2<scalar>::operator*(scalar right) const
 {
-	return vec2(x * right, y * right);
+	return vector2(x * right, y * right);
 }
 
-scalar dot(const vec2& left, const vec2& right)
+template <class scalar>
+scalar dot(const vector2<scalar>& left, const vector2<scalar>& right)
 {
 	return left.x * right.x + left.y * right.y;
 }
 
-inline vec2 operator*(scalar left, const vec2& right)
+template <class scalar>
+inline vector2<scalar> operator*(scalar left, const vector2<scalar>& right)
 {
-	return vec2(left * right.x, left * right.y);
+	return vector2<scalar>(left * right.x, left * right.y);
 }
 
 } // dvn

@@ -28,7 +28,7 @@ TEST(vec2, should_multiply_scalar_and_vector)
 {
 	vec2 a(1, 2);
 	vec2 expected(2, 4);
-	vec2 actual = 2 * a;
+	vec2 actual = 2.0f * a;
 	EXPECT_EQ(expected, actual);
 }
 
