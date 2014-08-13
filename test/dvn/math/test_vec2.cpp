@@ -19,8 +19,8 @@ TEST(vec2, should_subtract_two_vectors)
 {
 	vec2 a(1.0f, 1.0f);
 	vec2 b(1.0f, 2.0f);
-	vec2 expected(2.0f, 3.0f);
-	vec2 actual = a + b;
+	vec2 expected(0.0f, -1.0f);
+	vec2 actual = a - b;
 	EXPECT_EQ(expected, actual);
 }
 
