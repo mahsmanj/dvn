@@ -8,7 +8,7 @@
 namespace dvn {
 namespace math {
 
-template <class base_unit, class derived_unit>
+template <class base_unit, class derived_unit, class scalar>
 class quantity
 {
 public:
@@ -30,15 +30,15 @@ private:
 	scalar _value;
 };
 
-template <class base_unit, class derived_unit>
-inline typename quantity<base_unit, derived_unit> operator*(
+template <class base_unit, class derived_unit, class scalar>
+inline typename quantity<base_unit, derived_unit, scalar> operator*(
 	scalar left,
-	quantity<base_unit, derived_unit> right);
+	quantity<base_unit, derived_unit, scalar> right);
 
-template <class base_unit, class derived_unit>
-inline typename quantity<base_unit, derived_unit> operator/(
+template <class base_unit, class derived_unit, class scalar>
+inline typename quantity<base_unit, derived_unit, scalar> operator/(
 	scalar left,
-	quantity<base_unit, derived_unit> right);
+	quantity<base_unit, derived_unit, scalar> right);
 
 template <class target_quantity, class source_quantity>
 target_quantity convert(source_quantity s);
@@ -61,6 +61,7 @@ public:
 	}
 };
 
+template <class scalar>
 class angle
 {
 public:
@@ -70,18 +71,18 @@ public:
 	template <>
 	inline static scalar per<degree>()
 	{
-		return 1.0f;
+		return static_cast<scalar>(1.0);
 	}
 
 	template <>
 	inline static scalar per<radian>()
 	{
-		return DEGREES_PER_RADIAN;
+		return constants<scalar>::degrees_per_radian();
 	}
 };
 
-typedef quantity<angle, degree> degrees;
-typedef quantity<angle, radian> radians;
+typedef quantity<angle<scalar>, degree, scalar> degrees;
+typedef quantity<angle<scalar>, radian, scalar> radians;
 
 class meter
 {
@@ -101,6 +102,7 @@ public:
 	}
 };
 
+template <class scalar>
 class length
 {
 public:
@@ -110,22 +112,22 @@ public:
 	template <>
 	inline static scalar per<meter>()
 	{
-		return 1.0f;
+		return static_cast<scalar>(1.0);
 	}
 
 	template <>
 	inline static scalar per<kilometer>()
 	{
-		return 1000.0f;
+		return static_cast<scalar>(1000.0);
 	}
 };
 
-typedef quantity<length, meter> meters;
-typedef quantity<length, kilometer> kilometers;
+typedef quantity<length<scalar>, meter, scalar> meters;
+typedef quantity<length<scalar>, kilometer, scalar> kilometers;
 
-#define DVN_TEMPLATE template <class base_unit, class derived_unit>
-#define DVN_TYPENAME typename quantity<base_unit, derived_unit>
-#define DVN_CLASS quantity<base_unit, derived_unit>
+#define DVN_TEMPLATE template <class base_unit, class derived_unit, class scalar>
+#define DVN_TYPENAME typename quantity<base_unit, derived_unit, scalar>
+#define DVN_CLASS quantity<base_unit, derived_unit, scalar>
 
 DVN_TEMPLATE
 DVN_CLASS::quantity(scalar in_value)

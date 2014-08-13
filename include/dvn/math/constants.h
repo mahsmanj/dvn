@@ -6,11 +6,39 @@
 namespace dvn {
 namespace math {
 
-const scalar PI = 3.1415927f;
-const scalar TWO_PI = 2 * PI;
+template <class scalar>
+class constants
+{
+public:
+	inline static scalar pi();
+	inline static scalar two_pi();
+	inline static scalar degrees_per_radian();
+	inline static scalar radians_per_degree();
+};
 
-const scalar DEGREES_PER_RADIAN = 180.0f / PI;
-const scalar RADIANS_PER_DEGREE = PI / 180.0f;
+template <class scalar>
+scalar constants<scalar>::pi()
+{
+	return static_cast<scalar>(3.141592653689793);
+}
+
+template <class scalar>
+scalar constants<scalar>::two_pi()
+{
+	return static_cast<scalar>(2.0 * pi());
+}
+
+template <class scalar>
+scalar constants<scalar>::degrees_per_radian()
+{
+	return static_cast<scalar>(180.0 / pi());
+}
+
+template <class scalar>
+scalar constants<scalar>::radians_per_degree()
+{
+	return static_cast<scalar>(pi() / 180.0);
+}
 
 } // math
 } // dvn
