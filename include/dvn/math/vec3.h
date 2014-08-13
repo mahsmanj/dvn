@@ -88,6 +88,17 @@ scalar dot(const vec3_t<scalar>& left, const vec3_t<scalar>& right)
 }
 
 template <class scalar>
+inline vec3_t<scalar> cross(
+	const vec3_t<scalar>& left,
+	const vec3_t<scalar>& right)
+{
+	return vec3_t<scalar>(
+		left.y * right.z - left.z * right.y,
+		left.z * right.x - left.x * right.z,
+		left.x * right.y - left.y * right.x);
+}
+
+template <class scalar>
 inline vec3_t<scalar> operator*(scalar left, const vec3_t<scalar>& right)
 {
 	return vec3_t<scalar>(left * right.x, left * right.y, left * right.z);

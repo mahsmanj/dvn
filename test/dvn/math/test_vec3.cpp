@@ -49,4 +49,13 @@ TEST(vec3, should_take_dot_product_of_two_vectors)
 	EXPECT_EQ(expected, actual);
 }
 
+TEST(vec3, should_take_cross_product_of_two_vectors)
+{
+	vec3 a(1.0f, 0.0f, 0.0f);
+	vec3 b(0.0f, 1.0f, 0.0f);
+	vec3 expected(0.0f, 0.0f, 1.0f);
+	vec3 actual = cross(a, b);
+	EXPECT_EQ(expected, actual);
+}
+
 }
