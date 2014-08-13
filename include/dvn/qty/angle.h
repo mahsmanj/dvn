@@ -24,27 +24,33 @@ public:
 	}
 };
 
+template <class real>
 class angle
 {
 public:
-	template <class derived_unit, class real>
+	template <class derived_unit>
 	inline static real per();
 
 	template <>
-	inline static real per<degree, real>()
+	inline static real per<degree>()
 	{
 		return static_cast<real>(1.0);
 	}
 
 	template <>
-	inline static real per<radian, real>()
+	inline static real per<radian>()
 	{
-		return static_cast<real>(57.2957795131);
+		return static_cast<real>(57.295779513082320877);
 	}
 };
 
-typedef quantity<angle, degree, real> degrees;
-typedef quantity<angle, radian, real> radians;
+typedef quantity<angle<real>, degree, real> degrees;
+typedef quantity<angle<float>, degree, float> degreesf;
+typedef quantity<angle<double>, degree, double> degreesd;
+
+typedef quantity<angle<real>, radian, real> radians;
+typedef quantity<angle<float>, radian, float> radiansf;
+typedef quantity<angle<double>, radian, double> radiansd;
 
 } // qty
 } // dvn

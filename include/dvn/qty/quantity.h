@@ -59,8 +59,8 @@ inline static real DVN_CLASS::per()
 	typedef denominator_quantity::unit denominator_unit;
 
 	// The result is a conversion factor: numerator units per denominator unit
-	return base_unit::per<denominator_unit, real>() /
-	       base_unit::per<numerator_unit, real>();
+	return base_unit::per<denominator_unit>() /
+	       base_unit::per<numerator_unit>();
 }
 
 DVN_TEMPLATE
