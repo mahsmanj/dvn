@@ -4,7 +4,7 @@
 namespace dvn {
 namespace math {
 
-#ifdef DVN_USE_DOUBLE_PRECISION_SCALAR
+#ifdef DVN_USE_DOUBLE_PRECISION
 	typedef double scalar;
 #else
 	typedef float scalar;
